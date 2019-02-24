@@ -1,8 +1,11 @@
 package com.gabrielmoraes.crusomc.cursomc.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "categoria")
 public class Categoria implements Serializable {
 
     public Categoria() {
@@ -13,7 +16,10 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
 
     public Integer getId() {
