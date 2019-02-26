@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoriaRespository extends JpaRepository<Categoria, Integer> {
+    //categoriaRepository.saveAll(Arrays.asList(cat1, cat2))
 }
