@@ -3,6 +3,7 @@ package com.gabrielmoraes.crusomc.cursomc;
 import com.gabrielmoraes.crusomc.cursomc.domain.Categoria;
 import com.gabrielmoraes.crusomc.cursomc.domain.Produto;
 import com.gabrielmoraes.crusomc.cursomc.repositories.CategoriaRespository;
+import com.gabrielmoraes.crusomc.cursomc.repositories.ProdutoRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,9 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
+
+    @Autowired
+    private ProdutoRespository produtoRespository;
 
     @Autowired
     private CategoriaRespository categoriaRespository;
@@ -35,9 +39,12 @@ public class CursomcApplication implements CommandLineRunner{
         cat2.getProdutos().addAll(Arrays.asList(p2));
 
         p1.getCategorias().addAll(Arrays.asList(cat1));
+        p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
         p2.getCategorias().addAll(Arrays.asList(cat1));
 
         categoriaRespository.saveAll(Arrays.asList(cat1, cat2));
+
+        produtoRespository.saveAll(Arrays.asList(p1, p2, p3));
 
     }
 }
