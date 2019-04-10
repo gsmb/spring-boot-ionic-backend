@@ -1,6 +1,5 @@
 package com.gabrielmoraes.crusomc.cursomc.resources;
 
-import com.gabrielmoraes.crusomc.cursomc.domain.Categoria;
 import com.gabrielmoraes.crusomc.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

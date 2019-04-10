@@ -2,6 +2,7 @@ package com.gabrielmoraes.crusomc.cursomc.services;
 
 import com.gabrielmoraes.crusomc.cursomc.domain.Categoria;
 import com.gabrielmoraes.crusomc.cursomc.repositories.CategoriaRespository;
+import com.gabrielmoraes.crusomc.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class CategoriaService {
 
     public Categoria buscar(Integer id) {
         Optional<Categoria> obj = categoriaRespository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Onjeto não eocntrado! Id " + id + ", tipo: " + Categoria.class.getName()));
     }
 }
