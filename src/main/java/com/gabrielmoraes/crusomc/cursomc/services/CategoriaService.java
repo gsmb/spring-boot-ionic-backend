@@ -19,4 +19,9 @@ public class CategoriaService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Onjeto não eocntrado! Id " + id + ", tipo: " + Categoria.class.getName()));
     }
+
+    public Categoria insert(Categoria obj) {
+        obj.setId(null);
+        return categoriaRespository.save(obj);
+    }
 }
