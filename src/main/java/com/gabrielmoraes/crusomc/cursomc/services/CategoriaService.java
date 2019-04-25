@@ -1,6 +1,7 @@
 package com.gabrielmoraes.crusomc.cursomc.services;
 
 import com.gabrielmoraes.crusomc.cursomc.domain.Categoria;
+import com.gabrielmoraes.crusomc.cursomc.dto.CategoriaDTO;
 import com.gabrielmoraes.crusomc.cursomc.repositories.CategoriaRespository;
 import com.gabrielmoraes.crusomc.cursomc.services.Exceptions.DataIntegrityException;
 import com.gabrielmoraes.crusomc.cursomc.services.exceptions.ObjectNotFoundException;
@@ -52,5 +53,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return categoriaRespository.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDto) {
+        return new Categoria(objDto.getId(), objDto.getNome());
     }
 }
