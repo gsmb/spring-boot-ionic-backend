@@ -19,40 +19,40 @@ import java.util.Optional;
 public class CategoriaService {
 
     @Autowired
-    private CategoriaRespository categoriaRespository;
+    private CategoriaRespository repo;
 
     public Categoria find(Integer id) {
-        Optional<Categoria> obj = categoriaRespository.findById(id);
+        Optional<Categoria> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não eocntrado! Id " + id + ", tipo: " + Categoria.class.getName()));
     }
 
     public Categoria insert(Categoria obj) {
         obj.setId(null);
-        return categoriaRespository.save(obj);
+        return repo.save(obj);
     }
 
     public Categoria update(Categoria obj) {
         find(obj.getId());
-        return categoriaRespository.save(obj);
+        return repo.save(obj);
     }
 
     public void delete(Integer id) {
         find(id);
         try{
-            categoriaRespository.deleteById(id);
+            repo.deleteById(id);
         }catch (DataIntegrityViolationException e){
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
         }
     }
 
     public List<Categoria> findAll() {
-        return categoriaRespository.findAll();
+        return repo.findAll();
     }
 
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-        return categoriaRespository.findAll(pageRequest);
+        return repo.findAll(pageRequest);
     }
 
     public Categoria fromDTO(CategoriaDTO objDto) {
