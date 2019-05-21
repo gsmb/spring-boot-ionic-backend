@@ -1,14 +1,18 @@
 package com.gabrielmoraes.crusomc.cursomc.resources;
 
 import com.gabrielmoraes.crusomc.cursomc.domain.Cliente;
+import com.gabrielmoraes.crusomc.cursomc.dto.CategoriaDTO;
 import com.gabrielmoraes.crusomc.cursomc.dto.ClienteDTO;
+import com.gabrielmoraes.crusomc.cursomc.dto.ClienteNewDTO;
 import com.gabrielmoraes.crusomc.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +27,15 @@ public class ClienteResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id) {
         return ResponseEntity.ok().body(service.find(id));
+    }
+
+    @RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
+        Cliente obj = service.fromDTO(objDto);
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
